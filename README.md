@@ -12,6 +12,20 @@ A full-stack meal management application built with **NestJS**, **Prisma**, **Po
 
 ---
 
+## 🌐 Live Demo
+
+**Frontend**: https://your-app.vercel.app  
+**Backend API**: https://your-backend.railway.app  
+**API Docs**: https://your-backend.railway.app/api/docs
+
+**Demo Credentials**:
+- User: `demo@tiffin.com` / `demo123`
+- Admin: `admin@tiffin.com` / `demo123`
+
+**Note**: First load may take 5-10 seconds due to Railway's free tier cold start.
+
+---
+
 ## 📖 Overview
 
 The Tiffin Management System allows users to schedule and manage daily meals (breakfast, lunch, dinner) with automatic pricing, bulk scheduling, and analytics dashboards. Admins can monitor user activity and meal statistics.
