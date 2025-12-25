@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { UtensilsCrossed, Mail, Lock, Sparkles } from 'lucide-react';
+import { UtensilsCrossed, Mail, Lock, Sparkles, Eye, EyeOff, Copy } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function Login() {
@@ -16,6 +16,12 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success('Copied to clipboard!');
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,13 +85,20 @@ export default function Login() {
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 pr-10"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
                 </div>
               </div>
               <Button type="submit" disabled={loading} className="w-full gap-2">
@@ -97,6 +110,45 @@ export default function Login() {
                 )}
               </Button>
             </form>
+            
+            <div className="mt-6 p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-primary/20">
+              <p className="text-base font-semibold text-foreground mb-3 flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                Demo Credentials
+              </p>
+              <div className="space-y-2.5">
+                <div className="bg-background/60 rounded-md p-3 border border-border/50">
+                  <p className="text-xs font-medium text-muted-foreground mb-2">Regular User</p>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <p className="text-base font-mono text-foreground">demo@tiffin.com</p>
+                    <button onClick={() => copyToClipboard('demo@tiffin.com')} className="p-1 hover:bg-muted rounded">
+                      <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-base font-mono text-foreground">demo123</p>
+                    <button onClick={() => copyToClipboard('demo123')} className="p-1 hover:bg-muted rounded">
+                      <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  </div>
+                </div>
+                <div className="bg-background/60 rounded-md p-3 border border-border/50">
+                  <p className="text-xs font-medium text-muted-foreground mb-2">Admin User</p>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <p className="text-base font-mono text-foreground">admin@tiffin.com</p>
+                    <button onClick={() => copyToClipboard('admin@tiffin.com')} className="p-1 hover:bg-muted rounded">
+                      <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-base font-mono text-foreground">demo123</p>
+                    <button onClick={() => copyToClipboard('demo123')} className="p-1 hover:bg-muted rounded">
+                      <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             <p className="text-center text-sm text-muted-foreground mt-6">
               Don't have an account?{' '}

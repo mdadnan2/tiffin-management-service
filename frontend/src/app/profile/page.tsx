@@ -40,10 +40,10 @@ export default function ProfilePage() {
     try {
       const { data } = await api.price.get();
       setPrices({
-        breakfast: parseFloat(data.breakfast) || 0,
-        lunch: parseFloat(data.lunch) || 0,
-        dinner: parseFloat(data.dinner) || 0,
-        custom: parseFloat(data.custom) || 0,
+        breakfast: Number(data.breakfast) || 0,
+        lunch: Number(data.lunch) || 0,
+        dinner: Number(data.dinner) || 0,
+        custom: Number(data.custom) || 0,
       });
     } catch (err: any) {
       if (err.response?.status === 404) {

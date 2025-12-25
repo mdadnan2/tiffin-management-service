@@ -1,5 +1,12 @@
 # Tiffin Management System
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/mdadnan2/tiffin-management-service)
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+
 A full-stack meal management application built with **NestJS**, **Prisma**, **PostgreSQL**, and **Next.js**. This project demonstrates production-ready backend engineering with clean architecture, authentication, role-based access control, and RESTful API design.
 
 
@@ -269,7 +276,7 @@ npm run dev
 
 **Access:**
 - Backend API: http://localhost:3001
-- Swagger Docs: http://localhost:3001/api/docs
+- Swagger Docs: http://0.0.0.0:3001/api/docs
 - Frontend: http://localhost:3000
 
 **Demo Users:**
@@ -524,7 +531,7 @@ This project demonstrates:
 ## 📚 Additional Documentation
 
 - [Prisma Schema](backend/prisma/schema.prisma)
-- [API Documentation](http://localhost:3001/api/docs) (Swagger)
+- [API Documentation](http://0.0.0.0:3001/api/docs) (Swagger)
 
 ---
 
