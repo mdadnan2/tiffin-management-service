@@ -39,11 +39,11 @@ async function bootstrap() {
   return serverlessExpress({ app: expressApp });
 }
 
-export const handler: Handler = async (event, context) => {
+export const handler: Handler = async (event, context, callback) => {
   // Reuse server instance across warm invocations
   if (!cachedServer) {
     cachedServer = await bootstrap();
   }
 
-  return cachedServer(event, context);
+  return cachedServer(event, context, callback);
 };
