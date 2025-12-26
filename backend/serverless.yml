@@ -36,7 +36,7 @@ provider:
 # Lambda function
 functions:
   api:
-    handler: dist/main.handler
+    handler: src/main.handler
     events:
       # Catch-all route for NestJS
       - http:
@@ -62,21 +62,31 @@ functions:
 # Packaging
 package:
   individually: false
-  patterns:
-    - '!node_modules/.prisma/client/libquery_engine-*'
-    - 'node_modules/.prisma/client/libquery_engine-rhel-*'
-    - '!node_modules/prisma/libquery_engine-*'
-    - '!node_modules/@prisma/engines/**'
-    - '!test/**'
-    - '!**/*.test.ts'
-    - '!**/*.spec.ts'
 
 # Plugins
 plugins:
-  - serverless-plugin-typescript
+  - serverless-esbuild
   - serverless-offline
 
 # Custom configuration
 custom:
+  esbuild:
+    bundle: true
+    minify: true
+    sourcemap: false
+    exclude:
+      - '@nestjs/microservices'
+      - '@nestjs/websockets'
+      - 'class-transformer/storage'
+    target: 'node18'
+    platform: 'node'
+    concurrency: 10
+    packager: npm
+    external:
+      - '@prisma/client'
+      - '.prisma'
+      - 'mock-aws-s3'
+      - 'nock'
+      - '@mapbox/node-pre-gyp'
   serverless-offline:
     httpPort: 3001

@@ -1,0 +1,195 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.WeeklyDashboardDto = exports.MonthlyDashboardDto = exports.CalendarQueryDto = exports.BulkDeleteDto = exports.BulkUpdateDto = exports.BulkMealDto = exports.UpdateMealDto = exports.CreateMealDto = void 0;
+const class_validator_1 = require("class-validator");
+const client_1 = require("@prisma/client");
+const swagger_1 = require("@nestjs/swagger");
+class CreateMealDto {
+}
+exports.CreateMealDto = CreateMealDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-15' }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], CreateMealDto.prototype, "date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.MealType, example: 'LUNCH' }),
+    (0, class_validator_1.IsEnum)(client_1.MealType),
+    __metadata("design:type", String)
+], CreateMealDto.prototype, "mealType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 2 }),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(1),
+    __metadata("design:type", Number)
+], CreateMealDto.prototype, "count", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Extra spicy', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateMealDto.prototype, "note", void 0);
+class UpdateMealDto {
+}
+exports.UpdateMealDto = UpdateMealDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 3, required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(1),
+    __metadata("design:type", Number)
+], UpdateMealDto.prototype, "count", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Updated note', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateMealDto.prototype, "note", void 0);
+class BulkMealDto {
+}
+exports.BulkMealDto = BulkMealDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: ['2024-01-15', '2024-01-16'], required: false }),
+    (0, class_validator_1.ValidateIf)(o => !o.startDate && !o.endDate),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsDateString)({}, { each: true }),
+    __metadata("design:type", Array)
+], BulkMealDto.prototype, "dates", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-15', required: false }),
+    (0, class_validator_1.ValidateIf)(o => !o.dates),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkMealDto.prototype, "startDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-19', required: false }),
+    (0, class_validator_1.ValidateIf)(o => !o.dates),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkMealDto.prototype, "endDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: [1, 2, 3, 4, 5], description: '0=Sunday, 1=Monday, ..., 6=Saturday', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsInt)({ each: true }),
+    (0, class_validator_1.ArrayMinSize)(1),
+    (0, class_validator_1.ArrayMaxSize)(7),
+    __metadata("design:type", Array)
+], BulkMealDto.prototype, "daysOfWeek", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: true, required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], BulkMealDto.prototype, "skipWeekends", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.MealType, example: 'LUNCH' }),
+    (0, class_validator_1.IsEnum)(client_1.MealType),
+    __metadata("design:type", String)
+], BulkMealDto.prototype, "mealType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 1 }),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(1),
+    __metadata("design:type", Number)
+], BulkMealDto.prototype, "count", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Weekly lunch', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], BulkMealDto.prototype, "note", void 0);
+class BulkUpdateDto {
+}
+exports.BulkUpdateDto = BulkUpdateDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-15' }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkUpdateDto.prototype, "startDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-19' }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkUpdateDto.prototype, "endDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.MealType, example: 'LUNCH', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEnum)(client_1.MealType),
+    __metadata("design:type", String)
+], BulkUpdateDto.prototype, "mealType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 2, required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(1),
+    __metadata("design:type", Number)
+], BulkUpdateDto.prototype, "count", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Updated for the week', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], BulkUpdateDto.prototype, "note", void 0);
+class BulkDeleteDto {
+}
+exports.BulkDeleteDto = BulkDeleteDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-15' }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkDeleteDto.prototype, "startDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01-19' }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkDeleteDto.prototype, "endDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.MealType, example: 'LUNCH', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEnum)(client_1.MealType),
+    __metadata("design:type", String)
+], BulkDeleteDto.prototype, "mealType", void 0);
+class CalendarQueryDto {
+}
+exports.CalendarQueryDto = CalendarQueryDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01', description: 'Month in YYYY-MM format', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Matches)(/^\d{4}-\d{2}$/, { message: 'month must be in YYYY-MM format' }),
+    __metadata("design:type", String)
+], CalendarQueryDto.prototype, "month", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-W03', description: 'Week in YYYY-Www format', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Matches)(/^\d{4}-W\d{2}$/, { message: 'week must be in YYYY-Www format' }),
+    __metadata("design:type", String)
+], CalendarQueryDto.prototype, "week", void 0);
+class MonthlyDashboardDto {
+}
+exports.MonthlyDashboardDto = MonthlyDashboardDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-01', description: 'Month in YYYY-MM format', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Matches)(/^\d{4}-\d{2}$/, { message: 'month must be in YYYY-MM format' }),
+    __metadata("design:type", String)
+], MonthlyDashboardDto.prototype, "month", void 0);
+class WeeklyDashboardDto {
+}
+exports.WeeklyDashboardDto = WeeklyDashboardDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2024-W03', description: 'Week in YYYY-Www format', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Matches)(/^\d{4}-W\d{2}$/, { message: 'week must be in YYYY-Www format' }),
+    __metadata("design:type", String)
+], WeeklyDashboardDto.prototype, "week", void 0);
+//# sourceMappingURL=meals.dto.js.map
