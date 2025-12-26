@@ -36,7 +36,7 @@ provider:
 # Lambda function
 functions:
   api:
-    handler: dist/lambda.handler
+    handler: dist/main.handler
     events:
       # Catch-all route for NestJS
       - http:
