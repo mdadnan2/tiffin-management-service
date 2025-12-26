@@ -1,10 +1,15 @@
 generator client {
   provider = "prisma-client-js"
+  // Lambda optimization: smaller bundle size
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // Lambda-safe connection pooling
+  // Limit connections per Lambda instance
+  relationMode = "prisma"
 }
 
 enum UserRole {

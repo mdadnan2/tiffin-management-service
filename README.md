@@ -58,7 +58,7 @@ The Tiffin Management System allows users to schedule and manage daily meals (br
 
 ### Infrastructure
 - **Database**: PostgreSQL (Railway/Render/Supabase)
-- **Backend Hosting**: Railway/Render
+- **Backend Hosting**: Railway/Render/AWS Lambda
 - **Frontend Hosting**: Vercel
 - **Database Management**: Prisma Migrate
 
@@ -381,7 +381,9 @@ GET /admin/users/:id/summary        # Get user summary
 
 ## 🚢 Deployment Guide
 
-### Backend Deployment (Railway/Render)
+### Backend Deployment Options
+
+#### Option 1: Railway/Render (Recommended)
 
 **Railway:**
 1. Connect GitHub repository
@@ -405,6 +407,39 @@ JWT_EXPIRATION=15m
 JWT_REFRESH_SECRET=<strong-refresh-secret>
 JWT_REFRESH_EXPIRATION=7d
 ```
+
+#### Option 2: AWS Lambda (Experimental)
+
+**⚠️ Educational Deployment - See Limitations Below**
+
+For a complete AWS Lambda deployment guide, see [AWS_LAMBDA_DEPLOYMENT.md](./AWS_LAMBDA_DEPLOYMENT.md)
+
+**Quick Overview:**
+```bash
+cd backend
+npm install -g serverless
+serverless deploy --stage prod
+```
+
+**Known Limitations:**
+- ❌ Cold start latency (2-5 seconds first request)
+- ❌ Prisma connection pooling challenges
+- ❌ Higher complexity vs traditional hosting
+- ❌ Debugging more difficult (CloudWatch logs)
+- ⚠️ Not recommended for production with this stack
+
+**When Lambda Makes Sense:**
+- ✅ Sporadic traffic (not constant)
+- ✅ Stateless operations
+- ✅ Cost optimization at scale
+- ✅ Learning serverless architecture
+
+**Why Railway/Render is Better for This Project:**
+- ✅ No cold starts
+- ✅ Persistent connections
+- ✅ Simpler debugging
+- ✅ Better Prisma compatibility
+- ✅ Free tier sufficient for demos
 
 ### Frontend Deployment (Vercel)
 

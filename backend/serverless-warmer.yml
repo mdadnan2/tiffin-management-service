@@ -1,0 +1,9 @@
+# Add to serverless.yml under functions:
+
+  # Optional: Keep Lambda warm
+  warmer:
+    handler: dist/warmer.handler
+    events:
+      - schedule: rate(5 minutes)
+    environment:
+      FUNCTION_NAME: ${self:service}-${self:provider.stage}-api

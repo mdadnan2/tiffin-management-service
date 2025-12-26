@@ -1,0 +1,82 @@
+service: tiffin-management-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  
+  # Lambda configuration
+  memorySize: 1024  # 1GB RAM (cold start optimization)
+  timeout: 30       # 30 seconds max execution
+  
+  # Environment variables (set via CLI or AWS Console)
+  environment:
+    NODE_ENV: production
+    DATABASE_URL: ${env:DATABASE_URL}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRATION: ${env:JWT_EXPIRATION, '15m'}
+    JWT_REFRESH_SECRET: ${env:JWT_REFRESH_SECRET}
+    JWT_REFRESH_EXPIRATION: ${env:JWT_REFRESH_EXPIRATION, '7d'}
+    FRONTEND_URL: ${env:FRONTEND_URL}
+  
+  # IAM permissions
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+          Resource: '*'
+
+# Lambda function
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      # Catch-all route for NestJS
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: true
+      # Root path
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: true
+
+# Packaging
+package:
+  individually: false
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-*'
+    - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
+    - '!test/**'
+    - '!**/*.test.ts'
+    - '!**/*.spec.ts'
+
+# Plugins
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+# Custom configuration
+custom:
+  serverless-offline:
+    httpPort: 3001
