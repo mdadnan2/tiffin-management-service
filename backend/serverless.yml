@@ -85,8 +85,8 @@ custom:
     external:
       - '@prisma/client'
       - '.prisma'
-      - 'mock-aws-s3'
-      - 'nock'
-      - '@mapbox/node-pre-gyp'
+    packagerOptions:
+      scripts:
+        - prisma generate
   serverless-offline:
     httpPort: 3001
