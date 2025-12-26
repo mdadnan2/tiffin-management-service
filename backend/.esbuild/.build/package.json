@@ -1,0 +1,12 @@
+{
+  "name": "tiffin-management-api",
+  "version": "1.0.0",
+  "description": "Packaged externals for tiffin-management-api",
+  "private": true,
+  "scripts": {
+    "script0": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.0"
+  }
+}
